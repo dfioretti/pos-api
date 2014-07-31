@@ -16,3 +16,59 @@ Migrating to DeviseCreateUsers (20140622003340)
   [1m[35mSQL (1.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20140622003340"]]
   [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.2ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "encrypted_password" varchar(255) DEFAULT '' NOT NULL, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20140622003340')[0m
+
+
+Started GET "/users/1" for 127.0.0.1 at 2014-07-31 17:21:19 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#show as JSON
+  Parameters: {"subdomain"=>"api", "id"=>"1"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 404 Not Found in 2ms
+
+ActiveRecord::RecordNotFound (Couldn't find User with id=1):
+  app/controllers/api/v1/users_controller.rb:5:in `show'
+
+
+  Rendered /Users/fioretti/.rvm/gems/ruby-1.9.3-p547/gems/actionpack-4.0.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.4ms)
+  Rendered /Users/fioretti/.rvm/gems/ruby-1.9.3-p547/gems/actionpack-4.0.2/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.6ms)
+  Rendered /Users/fioretti/.rvm/gems/ruby-1.9.3-p547/gems/actionpack-4.0.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.8ms)
+  Rendered /Users/fioretti/.rvm/gems/ruby-1.9.3-p547/gems/actionpack-4.0.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (17.7ms)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'exmaple@go.com' LIMIT 1
+Binary data inserted for `string` type on column `encrypted_password`
+  [1m[36mSQL (2.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Thu, 31 Jul 2014 21:22:18 UTC +00:00], ["email", "exmaple@go.com"], ["encrypted_password", "$2a$10$rxJp3xRg4fVbV7ASXokSqOlV61PBxR0xQ2g.Rh9Wwc.RslFlwUXBa"], ["updated_at", Thu, 31 Jul 2014 21:22:18 UTC +00:00]]
+  [1m[35m (0.9ms)[0m  commit transaction
+
+
+Started GET "/" for 127.0.0.1 at 2014-07-31 17:24:24 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/fioretti/.rvm/gems/ruby-1.9.3-p547/gems/railties-4.0.2/lib/rails/templates/rails/welcome/index.html.erb (0.5ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2014-07-31 17:24:39 -0400
+Processing by Api::V1::UsersController#show as JSON
+  Parameters: {"subdomain"=>"api", "id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 23ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2014-07-31 17:26:18 -0400
+Processing by Api::V1::UsersController#show as JSON
+  Parameters: {"subdomain"=>"api", "id"=>"1"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", "1"]]
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2014-07-31 17:27:20 -0400
+Processing by Api::V1::UsersController#show as JSON
+  Parameters: {"subdomain"=>"api", "id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", "1"]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.1ms)
